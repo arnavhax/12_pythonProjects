@@ -30,5 +30,5 @@ def computer_guess(x):
              high=guess-1
     print(f'I guessed it right, the number is{guess}\n')
 
-# guess(10)
+guess(10)
 computer_guess(1000)
