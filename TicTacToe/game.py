@@ -41,15 +41,20 @@ def check_diagwin(board):
     return False
 
 def play_move(board):
-    print("Enter row and colum of the element you want to play")
+    valid_in=[1,2,3]
+    print("Enter row and colum of the element you want to play rows(1,2,3),columns(1,2,3)")
     a,b=map(int,input().split(' '))
-    a-=1
-    b-=1
-    if(board[a][b]=='-'):
-        board[a][b]='x'
-    else:
+    if(a not in valid_in or b not in valid_in):
         print("Invalid move play again ")
         play_move(board)
+    else:
+        a-=1
+        b-=1
+        if(board[a][b]=='-'):
+            board[a][b]='x'
+        else:
+            print("Invalid move play again ")
+            play_move(board)
 def computer_move(board):
     a=random.randint(0,2)
     b=random.randint(0,2)
