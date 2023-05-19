@@ -1,7 +1,8 @@
 import random
 import time
 def create_board():
-    return([['-','-','-'],['-','-','-'],['-','-','-']])
+    return [['-' for _ in range(3)] for _ in range(3)]
+
 
 def check_rowwin(board):
     for i in range(3):
@@ -41,20 +42,23 @@ def check_diagwin(board):
     return False
 
 def play_move(board):
-    valid_in=[1,2,3]
-    print("Enter row and colum of the element you want to play rows(1,2,3),columns(1,2,3)")
-    a,b=map(int,input().split(' '))
-    if(a not in valid_in or b not in valid_in):
-        print("Invalid move play again ")
-        play_move(board)
-    else:
-        a-=1
-        b-=1
-        if(board[a][b]=='-'):
-            board[a][b]='x'
-        else:
-            print("Invalid move play again ")
-            play_move(board)
+    valid_in = [1, 2, 3]
+    while True:
+        try:
+            print("Enter row and column of the element you want to play (rows: 1, 2, 3), (columns: 1, 2, 3)")
+            a, b = map(int, input().split(' '))
+            if a not in valid_in or b not in valid_in:
+                raise ValueError("Invalid move")
+            a -= 1
+            b -= 1
+            if board[a][b] == '-':
+                board[a][b] = 'x'
+                break
+            else:
+                raise ValueError("Invalid move")
+        except ValueError as e:
+            print(str(e) + ". Please play again.")
+
 def computer_move(board):
     a=random.randint(0,2)
     b=random.randint(0,2)
@@ -69,8 +73,8 @@ def tie(board):
                 return False
     return True
 def print_board(board):
-    for i in range(3):
-      print(board[i])
+    for row in board:
+        print(' '.join(row))
 
 def game():
     board=create_board()
